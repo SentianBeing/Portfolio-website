@@ -6,7 +6,7 @@ interface ServiceCardProps {
   service: ServiceItem;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
+const ServiceCard: React.FC<ServiceCardProps> = React.memo(({ service }) => {
   return (
     <div className="flex flex-col h-full bg-white p-8 md:p-10 relative group transition-colors duration-300">
       {/* Top Row: Icon + Tag */}
@@ -61,6 +61,6 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
       </div>
     </div>
   );
-};
+});
 
 export default ServiceCard;

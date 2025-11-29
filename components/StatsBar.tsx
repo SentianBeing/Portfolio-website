@@ -8,7 +8,7 @@ const stats: StatItem[] = [
   { icon: MessageSquare, text: "Clear Communication" },
 ];
 
-const StatsBar: React.FC = () => {
+const StatsBar: React.FC = React.memo(() => {
   return (
     <div className="w-full border-b border-dashed border-gray-200 bg-white">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x border-dashed border-gray-200">
@@ -21,6 +21,6 @@ const StatsBar: React.FC = () => {
       </div>
     </div>
   );
-};
+});
 
 export default StatsBar;

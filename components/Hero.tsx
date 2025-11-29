@@ -55,8 +55,11 @@ const Hero: React.FC = () => {
         <div className="w-20 h-20 md:w-24 md:h-24 bg-brand-yellow rounded-2xl overflow-hidden flex items-end justify-center relative z-10 mx-auto transform rotate-3 shadow-lg">
            <img 
             src="https://picsum.photos/id/64/200/200" 
-            alt="Portrait" 
+            alt="Portrait of Karthik DS"
+            width="200"
+            height="200"
             className="w-full h-full object-cover grayscale mix-blend-multiply opacity-90"
+            loading="eager"
            />
         </div>
       </div>

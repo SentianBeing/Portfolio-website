@@ -3,6 +3,7 @@ import { PenTool, Lightbulb, Code } from 'lucide-react';
 import ServiceCard from './ServiceCard';
 import { ServiceItem } from '../types';
 
+// Static data defined outside component to prevent recreation on re-renders
 const services: ServiceItem[] = [
   {
     icon: PenTool,
@@ -31,7 +32,7 @@ const services: ServiceItem[] = [
   }
 ];
 
-const ServicesGrid: React.FC = () => {
+const ServicesGrid: React.FC = React.memo(() => {
   return (
     <section className="w-full bg-white border-b border-dashed border-gray-200">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x border-dashed border-gray-200">
@@ -43,6 +44,6 @@ const ServicesGrid: React.FC = () => {
       </div>
     </section>
   );
-};
+});
 
 export default ServicesGrid;

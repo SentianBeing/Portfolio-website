@@ -30,7 +30,10 @@ const AboutPage: React.FC = () => {
             <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-gray-100 shadow-inner border border-gray-100 rotate-1 transition-transform hover:rotate-0 duration-500">
                <img 
                 src="https://picsum.photos/id/433/800/1000" 
-                alt="Karthik working" 
+                alt="Karthik working on design projects"
+                width="800"
+                height="1000" 
+                loading="lazy"
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                />
                <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm p-4 rounded-xl border border-gray-200/50">

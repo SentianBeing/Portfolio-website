@@ -6,27 +6,36 @@ interface NavbarProps {
   currentPage: string;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentPage }) => {
+const Navbar: React.FC<NavbarProps> = React.memo(({ onNavigate, currentPage }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      // Determine visibility
-      if (currentScrollY < 10) {
-        setIsVisible(true);
-      } else if (currentScrollY > lastScrollY.current) {
-        // Scrolling down
-        setIsVisible(false);
-      } else {
-        // Scrolling up
-        setIsVisible(true);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          
+          // Determine visibility
+          if (currentScrollY < 10) {
+            setIsVisible(true);
+          } else if (currentScrollY > lastScrollY.current) {
+            // Scrolling down
+            setIsVisible(false);
+          } else {
+            // Scrolling up
+            setIsVisible(true);
+          }
+          
+          lastScrollY.current = currentScrollY;
+          ticking = false;
+        });
+
+        ticking = true;
       }
-      
-      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -82,7 +91,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentPage }) => {
 
       {/* Mobile Menu Button */}
       <div className="md:hidden">
-        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label="Toggle menu">
           {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
@@ -91,6 +100,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentPage }) => {
       <button 
         onClick={(e) => handleLinkClick('Home', e)}
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-2"
+        aria-label="Go to home"
       >
         <div className="w-8 h-8 bg-brand-yellow rounded-lg transform -rotate-3 transition-transform hover:rotate-0"></div>
         <div className="flex flex-col leading-none font-bold text-sm tracking-tight text-left">
@@ -101,7 +111,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentPage }) => {
 
       {/* Right Actions */}
       <div className="hidden md:flex items-center gap-6">
-        <button className="text-gray-800 hover:text-black">
+        <button className="text-gray-800 hover:text-black" aria-label="Shopping Bag">
           <ShoppingBag className="w-5 h-5" />
         </button>
         <button className="flex items-center gap-1 text-sm font-medium text-gray-800 hover:text-black">
@@ -136,6 +146,6 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentPage }) => {
       )}
     </nav>
   );
-};
+});
 
 export default Navbar;
